@@ -12,6 +12,12 @@ func main() {
 	app.Use(recover.New())
 	app.Use(logger.New())
 
+	router(app)
+
+	app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed))
+}
+
+func router(app *iris.Application) {
 	app.Handle("GET", "/", func(ctx iris.Context) {
 		ctx.HTML("<h1>Welcome</h1>")
 	})
@@ -23,6 +29,4 @@ func main() {
 	app.Get("/hello", func(ctx iris.Context) {
 		ctx.JSON(iris.Map{"Message": "Hello iris!"})
 	})
-
-	app.Run(iris.Addr(":8080"), iris.WithoutServerError(iris.ErrServerClosed))
 }
