@@ -1,19 +1,15 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
-
-	"github.com/carlisliu/pluto/config"
 )
 
 func main() {
 	app := iris.New()
 
-	fmt.Println(config.DefaultConfig())
+	app.Logger().SetLevel("debug")
 
 	app.Use(recover.New())
 	app.Use(logger.New())
